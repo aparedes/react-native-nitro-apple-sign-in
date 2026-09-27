@@ -551,7 +551,7 @@ of the SPEC §3 table.
 #### 1. Error class
 **File**: `src/AppleSignInError.ts`
 **Changes**:
-- [ ] Implement it with PK's `src/PasskeyError.ts` (at `3084815`) as the structural template:
+- [x] Implement it with PK's `src/PasskeyError.ts` (at `3084815`) as the structural template:
   ```ts
   export type AppleSignInErrorCode =
     | 'canceled'
@@ -609,7 +609,7 @@ of the SPEC §3 table.
 #### 2. Public entry
 **File**: `src/index.ts` (replace the placeholder)
 **Changes**:
-- [ ] Implement it exactly as the SPEC §3 "JS entry: `src/index.ts`" block. Note that this
+- [x] Implement it exactly as the SPEC §3 "JS entry: `src/index.ts`" block. Note that this
   means:
   - `AppleSignIn` **is** exported, unlike PK's `native`
   - `request` defaults to `{}`
@@ -619,7 +619,7 @@ of the SPEC §3 table.
 #### 3. Bun tests
 **Files**: `src/__tests__/AppleSignInError.test.ts`, `src/__tests__/wrappers.test.ts`
 **Changes**:
-- [ ] `AppleSignInError.test.ts` (`import { describe, expect, test } from 'bun:test'`) covers
+- [x] `AppleSignInError.test.ts` (`import { describe, expect, test } from 'bun:test'`) covers
   SPEC §6:
   - `asauth-1000` → `unknown`, `1001` → `canceled`, `1002` → `invalidResponse`,
     `1003` → `notHandled`, `1004` → `failed` and `1005` → `unknown`
@@ -638,7 +638,7 @@ of the SPEC §3 table.
     message; `42` → `unknown`
   - an existing `AppleSignInError` → `toBe` the same instance
   - `name === 'AppleSignInError'`, and `instanceof Error`
-- [ ] `wrappers.test.ts` follows the PK `src/__tests__/index.test.ts:1-14` pattern:
+- [x] `wrappers.test.ts` follows the PK `src/__tests__/index.test.ts:1-14` pattern:
   - `fake = { isSupported: true, signIn: mock(), getCredentialState: mock() }`
   - `mock.module('react-native-nitro-modules', () => ({ NitroModules: { createHybridObject: () => fake } }))`
     runs **before** `const mod = await import('../index')`
@@ -663,11 +663,11 @@ of the SPEC §3 table.
 ### Success Criteria
 
 #### Automated Verification:
-- [ ] Tests: `bun test src`
-- [ ] Typecheck: `bun run typecheck`
-- [ ] Build: `bun run build`, and `ls lib/typescript/src` shows no `__tests__`
-- [ ] Lint: `bunx oxlint --deny-warnings`
-- [ ] Format: `bunx oxfmt --check`
+- [x] Tests: `bun test src`
+- [x] Typecheck: `bun run typecheck`
+- [x] Build: `bun run build`, and `ls lib/typescript/src` shows no `__tests__`
+- [x] Lint: `bunx oxlint --deny-warnings`
+- [x] Format: `bunx oxfmt --check`
 
 #### Manual Verification:
 - [ ] `src/index.ts` matches the SPEC §3 block, including the exported names and the doc
