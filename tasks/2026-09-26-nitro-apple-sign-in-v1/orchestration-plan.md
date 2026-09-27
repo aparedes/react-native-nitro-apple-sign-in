@@ -888,13 +888,13 @@ payload decoding, and keeping harness tests free of system sheets.
 #### 1. Demo screen
 **File**: `example/App.tsx` (replace the placeholder; use PK's `App.tsx` at `3084815` only as a style reference for layout and `SafeAreaView`)
 **Changes**:
-- [ ] Show `Platform.OS` and `AppleSignIn.isSupported`.
-- [ ] Add a **"Sign in with Apple"** button that:
+- [x] Show `Platform.OS` and `AppleSignIn.isSupported`.
+- [x] Add a **"Sign in with Apple"** button that:
   - generates a random `nonce` and `state`: 16 bytes from `crypto.getRandomValues` if it is
     available in Hermes, otherwise `Math.random`-based hex. It's a demo; note that in a comment.
   - calls `signInWithApple({ scopes: ['email', 'fullName'], nonce, state })`
   - stores `credential.user` for the state button
-- [ ] Render the result:
+- [x] Render the result:
   - the credential as pretty JSON, with `identityToken` and `authorizationCode` truncated for
     display
   - `state matches: yes/no` (`credential.state === state`)
@@ -905,18 +905,18 @@ payload decoding, and keeping harness tests free of system sheets.
     - `base64urlToBase64` maps `-`→`+` and `_`→`/` and re-pads with `=`
     - there is no signature check; say so in a visible caption
   - `nonce matches: yes/no`
-- [ ] Add a **"Credential state"** button, disabled until a `user` exists, that calls
+- [x] Add a **"Credential state"** button, disabled until a `user` exists, that calls
   `getAppleCredentialState(user)` and shows the state.
-- [ ] Every failure shows `` `${e.code}: ${e.message}` `` for an `AppleSignInError`, and
+- [x] Every failure shows `` `${e.code}: ${e.message}` `` for an `AppleSignInError`, and
   `'non-AppleSignInError'` otherwise.
-- [ ] On Android, the buttons stay enabled so that the `unsupported` rejection is visible
+- [x] On Android, the buttons stay enabled so that the `unsupported` rejection is visible
   (SPEC §6). Its "Credential state" button calls `getAppleCredentialState('android-test')`,
   because it can't have a user.
 
 #### 2. Harness suite
 **File**: `example/__tests__/apple-sign-in.harness.ts`
 **Changes**:
-- [ ] Use `describe`/`it`/`expect` from `react-native-harness`, and borrow the
+- [x] Use `describe`/`it`/`expect` from `react-native-harness`, and borrow the
   `rejection()`/`withTimeout()` helpers from PK's `example/__tests__/passkeys.harness.ts` at
   `3084815`. Cases:
   - the module loads, and `AppleSignIn.isSupported === (Platform.OS === 'ios')`
@@ -926,30 +926,37 @@ payload decoding, and keeping harness tests free of system sheets.
     - `getAppleCredentialState('x')` rejects the same way
   - **No iOS `signInWithApple` call.** It opens a system sheet or depends on the simulator's
     Apple Account state.
-- [ ] Run each suite locally. If a case shows a system sheet, times out or is flaky, delete it
+- [x] Run each suite locally. If a case shows a system sheet, times out or is flaky, delete it
   and record a `> Deviation:` note. Don't commit a flaky test.
 
 #### 3. Example docs
 **File**: `example/README.md`
 **Changes**:
-- [ ] Replace the pointer with a short guide:
+- [x] Replace the pointer with a short guide:
   - prerequisites: an App ID with Sign in with Apple enabled, and a device or simulator signed
     in to an Apple Account
   - `env APPLE_TEAM_ID=… APPLE_BUNDLE_ID=… bun run signing`, then `bun run pod`, then
     `bun run ios`
   - that the local xcconfig is gitignored
   - the harness commands
+  > Deviation: also added `"types": ["jest", "bun"]` to `example/tsconfig.json`'s
+  > `compilerOptions` (a file from Phase 1). `bunx tsc --noEmit -p example/tsconfig.json` — the
+  > phase's own typecheck success criterion, apparently never run until now — failed with 6
+  > pre-existing errors in `example/scripts/write-signing.ts` (`Cannot find name 'Bun'`, etc.)
+  > because `@react-native/typescript-config`'s base `"types": ["jest"]` suppresses Bun's
+  > ambient globals. This brings it in line with the root `tsconfig.json`'s existing
+  > `"types": ["bun"]` convention.
 
 ### Success Criteria
 
 #### Automated Verification:
-- [ ] Typecheck (the root `tsconfig` doesn't cover `example/`): `bunx tsc --noEmit -p example/tsconfig.json`
-- [ ] Lint: `bunx oxlint --deny-warnings`
-- [ ] Format: `bunx oxfmt --check`
-- [ ] iOS build: `xcodebuild -workspace example/ios/NitroAppleSignInExample.xcworkspace -scheme NitroAppleSignInExample -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17' build CODE_SIGNING_ALLOWED=NO`
-- [ ] Android build: `example/android/gradlew -p example/android assembleDebug`
-- [ ] iOS harness (install the app on the simulator first via `bun run --cwd example ios`): `env HARNESS_IOS_VERSION=27.0 bun run --cwd example test:harness:ios`
-- [ ] Android harness (emulator `Medium_Phone_API_36.1` running with the app installed): `bun run --cwd example test:harness:android`
+- [x] Typecheck (the root `tsconfig` doesn't cover `example/`): `bunx tsc --noEmit -p example/tsconfig.json`
+- [x] Lint: `bunx oxlint --deny-warnings`
+- [x] Format: `bunx oxfmt --check`
+- [x] iOS build: `xcodebuild -workspace example/ios/NitroAppleSignInExample.xcworkspace -scheme NitroAppleSignInExample -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17' build CODE_SIGNING_ALLOWED=NO`
+- [x] Android build: `example/android/gradlew -p example/android assembleDebug`
+- [x] iOS harness (install the app on the simulator first via `bun run --cwd example ios`): `env HARNESS_IOS_VERSION=27.0 bun run --cwd example test:harness:ios`
+- [x] Android harness (emulator `Medium_Phone_API_36.1` running with the app installed): `bun run --cwd example test:harness:android`
 
   If that AVD is unavailable, use another API 36 AVD, record a `> Deviation:` note, and leave
   the committed config unchanged.

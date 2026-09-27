@@ -4,6 +4,7 @@
   "exclude": ["**/node_modules", "**/Pods"],
   "compilerOptions": {
     "strict": true,
+    "types": ["jest", "bun"],
     "paths": {
       "react-native-nitro-apple-sign-in": ["../src"]
     }
