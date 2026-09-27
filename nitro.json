@@ -1,0 +1,24 @@
+{
+  "$schema": "https://nitro.margelo.com/nitro.schema.json",
+  "cxxNamespace": ["nitroapplesignin"],
+  "ios": {
+    "iosModuleName": "NitroAppleSignIn"
+  },
+  "android": {
+    "androidNamespace": ["nitroapplesignin"],
+    "androidCxxLibName": "NitroAppleSignIn"
+  },
+  "autolinking": {
+    "NitroAppleSignIn": {
+      "ios": {
+        "language": "swift",
+        "implementationClassName": "HybridNitroAppleSignIn"
+      },
+      "android": {
+        "language": "kotlin",
+        "implementationClassName": "HybridNitroAppleSignIn"
+      }
+    }
+  },
+  "ignorePaths": ["**/node_modules"]
+}

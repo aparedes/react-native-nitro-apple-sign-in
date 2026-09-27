@@ -1,0 +1,5 @@
+// Pods settings first, then committed defaults, then the optional gitignored local override
+// written by `bun run --cwd example signing` (APPLE_TEAM_ID / APPLE_BUNDLE_ID).
+#include "../Pods/Target Support Files/Pods-NitroAppleSignInExample/Pods-NitroAppleSignInExample.debug.xcconfig"
+PRODUCT_BUNDLE_IDENTIFIER = com.nitroapplesigninexample
+#include? "Signing.local.xcconfig"

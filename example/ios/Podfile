@@ -1,0 +1,46 @@
+# Resolve react_native_pods.rb with node to allow for hoisting
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
+
+platform :ios, '16.0'
+prepare_react_native_project!
+
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
+end
+
+target 'NitroAppleSignInExample' do
+  config = use_native_modules!
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  # Search paths only: the pods are static libraries already linked into the host app, and a
+  # second copy in the test bundle registers the NitroAppleSignIn HybridObject twice and aborts.
+  target 'NitroAppleSignInExampleTests' do
+    inherit! :search_paths
+  end
+
+  post_install do |installer|
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false,
+      # :ccache_enabled => true
+    )
+
+    # `@testable import NitroAppleSignIn` in NitroAppleSignInExampleTests needs a testable Debug build.
+    installer.pods_project.targets.each do |t|
+      next unless t.name == 'NitroAppleSignIn'
+      t.build_configurations.each { |c| c.build_settings['ENABLE_TESTABILITY'] = 'YES' if c.name == 'Debug' }
+    end
+  end
+end
