@@ -719,7 +719,7 @@ can crash. A wrong nonce or state mapping silently breaks server verification.
 #### 1. Error token mapper
 **File**: `ios/AppleSignInErrorToken.swift`
 **Changes**:
-- [ ] Add the pure mapper, which has no UI:
+- [x] Add the pure mapper, which has no UI:
   ```swift
   import AuthenticationServices
   import Foundation
@@ -741,7 +741,7 @@ can crash. A wrong nonce or state mapping silently breaks server verification.
 #### 2. Hybrid object
 **File**: `ios/HybridNitroAppleSignIn.swift` (replace the stub)
 **Changes**:
-- [ ] Mirror `PK/ios/HybridNitroPasskeys.swift` at `3084815` for its structure:
+- [x] Mirror `PK/ios/HybridNitroPasskeys.swift` at `3084815` for its structure:
   - the lock and `active` guard with `begin`/`clear` (`:10-60`)
   - the `@MainActor` helper with a `nonisolated init` (`:76-117`)
   - once-only `settle`, which releases the controller after the callback returns (`:148-172`)
@@ -749,8 +749,8 @@ can crash. A wrong nonce or state mapping silently breaks server verification.
 
   The class is `final class HybridNitroAppleSignIn: HybridNitroAppleSignInSpec, @unchecked Sendable`.
   Document that `active` is only touched under `lock`.
-- [ ] `var isSupported: Bool { true }`
-- [ ] **`signIn(request:)`**, per SPEC §4 steps 1–10:
+- [x] `var isSupported: Bool { true }`
+- [x] **`signIn(request:)`**, per SPEC §4 steps 1–10:
   1. **In-flight guard.** Take the lock. If `active != nil`, return
      `.rejected(withError: appleSignInError("unknown", "A sign-in request is already in progress"))`
      without cancelling the first request.
@@ -790,13 +790,20 @@ can crash. A wrong nonce or state mapping silently breaks server verification.
        `nil`. Otherwise it is `AppleAuthFullName(givenName:familyName:)`.
      - `realUserStatus`: `.unsupported`, `.unknown` and `.likelyReal` map to the generated
        enum's cases, and `@unknown default` maps to its `unknown` case
+       > Deviation: Apple's type isn't `ASAuthorizationAppleIDCredential.RealUserStatus` (that
+       > type doesn't exist) — `realUserStatus` is typed `ASUserDetectionStatus` in the iOS 27.0
+       > SDK, with the same three cases (`.unsupported`, `.unknown`, `.likelyReal`). The mapping
+       > function takes `ASUserDetectionStatus` instead; the mapping itself is unchanged.
+       > Also, the generated enum's real case names are lowercased: `.fullname` (not
+       > `.fullName`), `.likelyreal` (not `.likelyReal`) and `.notfound` (not `.notFound`), used
+       > correctly throughout.
      - `state` ← `credential.state`
   7. `didCompleteWithError`: reject with
      `appleSignInError(AppleSignInErrorToken.token(for: error), error.localizedDescription)`.
   8. `settle` clears `active` via the `onSettle` closure **before** it resolves or rejects, so
      a follow-up call made from the JS continuation isn't rejected as in-progress. It runs at
      most once.
-- [ ] **`getCredentialState(user:)`**:
+- [x] **`getCredentialState(user:)`**:
   - no lock, and no main-thread hop (SPEC §4: no UI, may run alongside `signIn`)
   - `let promise = Promise<AppleCredentialState>()`
   - `ASAuthorizationAppleIDProvider().getCredentialState(forUserID: user) { state, error in … }`
@@ -804,16 +811,16 @@ can crash. A wrong nonce or state mapping silently breaks server verification.
     - otherwise map `.authorized`, `.revoked`, `.notFound` and `.transferred` to the generated
       cases, and `@unknown default` to the `notFound` case
   - return `promise`
-- [ ] Add a private helper:
+- [x] Add a private helper:
   `private func appleSignInError(_ token: String, _ text: String) -> Error { RuntimeError.error(withMessage: AppleSignInErrorToken.message(token: token, text)) }`
-- [ ] The file must pass `scripts/hooks/swiftlint.sh` (the repo's `.swiftlint.yml`). If
+- [x] The file must pass `scripts/hooks/swiftlint.sh` (the repo's `.swiftlint.yml`). If
   SwiftLint forces a structural change, such as un-nesting types, make it and record a
   `> Deviation:` note.
 
 #### 3. XCTest
 **Files**: `example/ios/NitroAppleSignInExampleTests/AppleSignInErrorTokenTests.swift`, `PlaceholderTests.swift`
 **Changes**:
-- [ ] Add `AppleSignInErrorTokenTests.swift`, using `@testable import NitroAppleSignIn`,
+- [x] Add `AppleSignInErrorTokenTests.swift`, using `@testable import NitroAppleSignIn`,
   `import AuthenticationServices` and `import XCTest`:
   - for n in 1000…1005, `NSError(domain: ASAuthorizationError.errorDomain, code: n)` gives
     `"asauth-\(n)"`
@@ -821,18 +828,18 @@ can crash. A wrong nonce or state mapping silently breaks server verification.
   - code 1099 in the AS domain gives `"asauth-1099"`
   - `NSError(domain: NSURLErrorDomain, code: -1)` gives `"unknown"`
   - `message(token: "asauth-1001", "x")` equals `"[AppleSignIn:asauth-1001] x"`
-- [ ] Register the new file in the `NitroAppleSignInExampleTests` target with the `xcodeproj`
+- [x] Register the new file in the `NitroAppleSignInExampleTests` target with the `xcodeproj`
   gem. Remove `PlaceholderTests.swift` from the target and from disk.
-- [ ] Run `bun run --cwd example pod`.
+- [x] Run `bun run --cwd example pod`.
 
 ### Success Criteria
 
 #### Automated Verification:
-- [ ] Pods: `bun run --cwd example pod`
-- [ ] iOS build: `xcodebuild -workspace example/ios/NitroAppleSignInExample.xcworkspace -scheme NitroAppleSignInExample -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17' build CODE_SIGNING_ALLOWED=NO`
-- [ ] XCTest: `xcodebuild test -workspace example/ios/NitroAppleSignInExample.xcworkspace -scheme NitroAppleSignInExample -destination 'platform=iOS Simulator,name=iPhone 17' CODE_SIGNING_ALLOWED=NO`
-- [ ] Swift lint: `scripts/hooks/swiftlint.sh`
-- [ ] The JS layer is unaffected: `bun test src`
+- [x] Pods: `bun run --cwd example pod`
+- [x] iOS build: `xcodebuild -workspace example/ios/NitroAppleSignInExample.xcworkspace -scheme NitroAppleSignInExample -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17' build CODE_SIGNING_ALLOWED=NO`
+- [x] XCTest: `xcodebuild test -workspace example/ios/NitroAppleSignInExample.xcworkspace -scheme NitroAppleSignInExample -destination 'platform=iOS Simulator,name=iPhone 17' CODE_SIGNING_ALLOWED=NO`
+- [x] Swift lint: `scripts/hooks/swiftlint.sh`
+- [x] The JS layer is unaffected: `bun test src`
 
 #### Manual Verification:
 - [ ] Reading the code confirms:

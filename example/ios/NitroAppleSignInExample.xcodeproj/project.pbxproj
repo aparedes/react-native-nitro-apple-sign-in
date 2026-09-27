@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		0C80B921A6F3F58F76C31292 /* libPods-NitroAppleSignInExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-NitroAppleSignInExample.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		41E42C627788C4F388618E4D /* PlaceholderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90210948954C8DF2242CA81 /* PlaceholderTests.swift */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		AED8BE103E7AC64D6B8C1394 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6D2C761FB4EC72FA4CFA90 /* SceneDelegate.swift */; };
 		DA1BF3F974C0D6DE4245285F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		DF1C5F11C97FFE6FD1ABBD33 /* AppleSignInErrorTokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEA4F941C99FC8883D7C852 /* AppleSignInErrorTokenTests.swift */; };
 		F06D651F1CDEB68A5C8DA51C /* libPods-NitroAppleSignInExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B54250BA09DD6F974E3687B4 /* libPods-NitroAppleSignInExampleTests.a */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +39,7 @@
 		44636A2230CC24A0DDF5EC95 /* Pods-NitroAppleSignInExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NitroAppleSignInExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-NitroAppleSignInExampleTests/Pods-NitroAppleSignInExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-NitroAppleSignInExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NitroAppleSignInExample.release.xcconfig"; path = "Target Support Files/Pods-NitroAppleSignInExample/Pods-NitroAppleSignInExample.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-NitroAppleSignInExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NitroAppleSignInExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EEA4F941C99FC8883D7C852 /* AppleSignInErrorTokenTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppleSignInErrorTokenTests.swift; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = NitroAppleSignInExample/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = NitroAppleSignInExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		85D196DC37CB325C2A343130 /* Debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
@@ -47,7 +48,6 @@
 		B54250BA09DD6F974E3687B4 /* libPods-NitroAppleSignInExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NitroAppleSignInExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9C62DEAE17DEF66192777DF /* Release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		E33A0AAC3EE33E738E04C96D /* Pods-NitroAppleSignInExample-NitroAppleSignInExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NitroAppleSignInExample-NitroAppleSignInExampleTests.release.xcconfig"; path = "Target Support Files/Pods-NitroAppleSignInExample-NitroAppleSignInExampleTests/Pods-NitroAppleSignInExample-NitroAppleSignInExampleTests.release.xcconfig"; sourceTree = "<group>"; };
-		E90210948954C8DF2242CA81 /* PlaceholderTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PlaceholderTests.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -108,7 +108,7 @@
 		3979EA1601380B244F5C49AD /* NitroAppleSignInExampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				E90210948954C8DF2242CA81 /* PlaceholderTests.swift */,
+				6EEA4F941C99FC8883D7C852 /* AppleSignInErrorTokenTests.swift */,
 			);
 			name = NitroAppleSignInExampleTests;
 			path = NitroAppleSignInExampleTests;
@@ -369,7 +369,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41E42C627788C4F388618E4D /* PlaceholderTests.swift in Sources */,
+				DF1C5F11C97FFE6FD1ABBD33 /* AppleSignInErrorTokenTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
