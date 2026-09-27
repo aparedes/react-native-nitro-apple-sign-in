@@ -1,6 +1,6 @@
 {
   "name": "react-native-nitro-apple-sign-in",
-  "version": "0.0.0-development",
+  "version": "0.1.0",
   "description": "Sign in with Apple for React Native, built with Nitro Modules",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
