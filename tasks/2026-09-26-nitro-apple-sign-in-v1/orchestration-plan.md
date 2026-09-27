@@ -1017,10 +1017,10 @@ revocation) must be precise, because hosts will copy it.
 #### 1. README
 **File**: `README.md`
 **Changes**:
-- [ ] Add a title, a one-paragraph purpose statement (SPEC §1: iOS-native only, no crypto and
+- [x] Add a title, a one-paragraph purpose statement (SPEC §1: iOS-native only, no crypto and
   no server work), and a requirements line: iOS 16+, RN 0.87 bare,
   `react-native-nitro-modules >=0.37.1 <0.38.0`.
-- [ ] Cover SPEC §7 items 1–10 in order, each as its own section, with the exact content SPEC
+- [x] Cover SPEC §7 items 1–10 in order, each as its own section, with the exact content SPEC
   §7 lists:
   1. install
   2. entitlement
@@ -1032,19 +1032,19 @@ revocation) must be precise, because hosts will copy it.
   8. credential state on launch
   9. Android
   10. usage and errors, with the `canceled` idiom snippet
-- [ ] Include an error-code table built from the SPEC §3 mapping table (native source →
+- [x] Include an error-code table built from the SPEC §3 mapping table (native source →
   `code`), plus the in-flight rejection.
-- [ ] Add a Troubleshooting section with the SPEC §3 notes: a missing entitlement → `unknown`
+- [x] Add a Troubleshooting section with the SPEC §3 notes: a missing entitlement → `unknown`
   (1000), no Apple Account → `unknown` (1000), and a dismissed sheet → `canceled`.
-- [ ] Add an API reference listing every export with its signature.
-- [ ] Add a "Development" section with the real commands from "Depends on prior phases", and
+- [x] Add an API reference listing every export with its signature.
+- [x] Add a "Development" section with the real commands from "Depends on prior phases", and
   the example signing steps.
-- [ ] Note that `nitrogen/generated/` is committed, and that `bun run codegen` regenerates it.
+- [x] Note that `nitrogen/generated/` is committed, and that `bun run codegen` regenerates it.
 
 ### Success Criteria
 
 #### Automated Verification:
-- [ ] Format: `bunx oxfmt --check` (it may ignore Markdown; if so, say so)
+- [x] Format: `bunx oxfmt --check` (it may ignore Markdown; if so, say so)
 
 #### Manual Verification:
 - [ ] Every SPEC §7 item is present and accurate, and every command in the README runs as
