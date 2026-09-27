@@ -1083,19 +1083,24 @@ medium
 #### 1. Documentation sweep
 **Files**: `README.md`, `example/README.md`, `.github/workflows/*.yml` header comments, `package.json` `description`/`keywords`, doc comments in `src/index.ts`, `src/AppleSignInError.ts`, `ios/*.swift`, `android/**/*.kt`, and the comments in `example/ios/Config/*.xcconfig` and `example/scripts/write-signing.ts`
 **Changes**:
-- [ ] Check every `README.md` statement against the deviation notes: the error table, the
+- [x] Check every `README.md` statement against the deviation notes: the error table, the
   harness coverage, the commands, the nitrogen patch (if one was applied) and the signing flow.
-- [ ] Check `example/README.md` against the actual scripts and env var names.
-- [ ] Check the CI workflow header comments for text left over from PK (JUnit, the server,
+- [x] Check `example/README.md` against the actual scripts and env var names.
+- [x] Check the CI workflow header comments for text left over from PK (JUnit, the server,
   fixtures, passkeys wording).
-- [ ] Sweep the run's full diff for other stale docs, such as comments that describe changed
+- [x] Sweep the run's full diff for other stale docs, such as comments that describe changed
   behavior or leftover PK wording. Update them, or record "no further drift".
+  > No further drift: every one of the run's 6 deviation notes was checked against the docs and
+  > found to have no doc impact (all are internal implementation details — Swift/Kotlin type
+  > names, a config file, a skipped patch). Both READMEs, all 4 CI workflow headers,
+  > `package.json`, and every doc comment in `src/`, `ios/` and `android/` were read in full and
+  > match the implemented behavior exactly. No files needed changes.
 
 ### Success Criteria
 
 #### Automated Verification:
-- [ ] Format: `bunx oxfmt --check`
-- [ ] Nothing is left over from PK:
+- [x] Format: `bunx oxfmt --check`
+- [x] Nothing is left over from PK:
   `grep -rniIE 'passkey|webauthn|simplewebauthn' --exclude-dir=node_modules --exclude-dir=Pods --exclude-dir=build --exclude-dir=tasks --exclude-dir=nitrogen --exclude=bun.lock .`
   prints nothing
 
